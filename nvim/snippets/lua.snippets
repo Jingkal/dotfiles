@@ -1,0 +1,6 @@
+snippet keymap vim keymap function
+	vim.keymap.set({'${1:mode}'}, '${2:lhs}', '${3:rhs}', { noremap = true, ${4:opt} }) $0
+
+snippet pi vim lua inspect object
+	print(vim.inspect(${0}))
+
