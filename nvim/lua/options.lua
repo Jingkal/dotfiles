@@ -20,4 +20,6 @@ vim.o.splitbelow     = true
 vim.o.hlsearch       = false
 vim.o.incsearch      = true
 
-vim.o.swapfile = false
+vim.o.wrap           = false
+
+vim.o.swapfile       = false

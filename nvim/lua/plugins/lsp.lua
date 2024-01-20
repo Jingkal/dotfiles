@@ -21,42 +21,20 @@ return {
 
         config = function(opts)
             local lspconfig = require('lspconfig')
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
             require("mason-lspconfig").setup(opts)
             require("mason-lspconfig").setup_handlers({
                 -- Handlers ------ BEGIN
-                -- default
                 function(ls_name)
-                    lspconfig[ls_name].setup { capabilities = capabilities }
+                    local conf = 'plugins.server-configs.' .. ls_name
+                    if pcall(require, conf) then
+                        lspconfig[ls_name].setup(require(conf))
+                    else
+                        -- default
+                        lspconfig[ls_name].setup({
+                            capabilities = require('cmp_nvim_lsp').default_capabilities()
+                        })
+                    end
                 end,
-                -- sh
-                ['bashls'] = function()
-                    lspconfig.bashls.setup({
-                        filetypes = { "sh", "zsh", "bash" },
-                        capabilities = capabilities })
-                end,
-                -- Lua
-                ['lua_ls'] = function()
-                    lspconfig.lua_ls.setup ({
-                        capabilities = capabilities,
-                        on_init = function(client)
-                            local path = client.workspace_folders[1].name
-                            if not vim.loop.fs_stat(path .. '/.luarc.json') and
-                                not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-                                client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-                                    Lua = {
-                                        runtime = { version = 'LuaJIT' },
-                                        workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } }
-                                    }
-                                })
-                                client.notify("workspace/didChangeConfiguration",
-                                { settings = client.config.settings })
-                            end
-                            return true
-                        end
-                    })
-                end
-                -- other
                 -- Handlers ------ END
             })
         end,
@@ -86,7 +64,7 @@ return {
                     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
                     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
                     vim.keymap.set('n', '<space>fm',
-                    function() vim.lsp.buf.format { async = true } end, opts)
+                        function() vim.lsp.buf.format { async = true } end, opts)
                 end,
             })
         end

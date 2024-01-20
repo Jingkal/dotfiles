@@ -14,21 +14,22 @@ map('i', '<C-e>', '<C-o>$')
 map('i', '<C-z>', '<C-o>zz')
 
 -- ========================================================
+-- Scoll ==================================================
+-- ========================================================
+map('n', 'zh', '10zh', { noremap = true })
+map('n', 'zl', '10zl', { noremap = true })
+map('n', '<C-u>', '<C-u>zz', { noremap = true })
+map('n', '<C-d>', '<C-d>zz', { noremap = true })
+map({ 'i', 'x', 'n' }, '<C-l>', '<cmd>tabn<cr>', { noremap = true })
+map({ 'i', 'x', 'n' }, '<C-h>', '<cmd>tabp<cr>', { noremap = true })
+
+-- ========================================================
 -- Node Navigation ========================================
 -- ========================================================
 map({ 'n', 'x' }, 'H',
     '<cmd>lua require("user.nodeski").backward()<cr>', { noremap = true })
-map({ 'n', 'x' }, '<leader>h',
-    '<cmd>lua require("user.nodeski").backward(nil, true)<cr>', { noremap = true })
 map({ 'n', 'x' }, 'L',
     '<cmd>lua require("user.nodeski").forward()<cr>', { noremap = true })
-map({ 'n', 'x' }, '<leader>l',
-    '<cmd>lua require("user.nodeski").forward(nil, true)<cr>', { noremap = true })
-map({ 'n', 'x' }, 'M',
-    '<cmd>lua require("user.nodeski").outward()<cr>', { noremap = true })
-map({ 'n', 'x' }, '<leader>m',
-    '<cmd>lua require("user.nodeski").outward(nil, true)<cr>', { noremap = true })
-
 
 -- ========================================================
 -- Command Mode ===========================================
@@ -42,3 +43,9 @@ map('c', '<C-B>', '<Left>', { noremap = true })
 -- ========================================================
 map('n', '<C-p>', '<cmd>Oil<cr>', { noremap = true })
 map('n', '<F1>', '<ESC>:vert h ')
+map({ 'i', 'n' }, '<F2>', '<cmd>ClangdSwitchSourceHeader<cr>', { noremap = true })
+
+
+-- ========================================================
+-- Vim Builtin Functions ==================================
+-- ========================================================
