@@ -20,3 +20,12 @@ install.zsh:
 	rsync -av -c ./shell/.zshenv ${HOME}/.zshenv
 	rsync -av -c ./shell/.zsh_funcs ${HOME}/.zsh_funcs
 
+# ------------------------------------------------------
+# ------ Tmux Config
+# ------------------------------------------------------
+pull.tmux:
+	rsync -av -c ${HOME}/.config/tmux .
+
+install.tmux:
+	rsync -av -c --delete ./nvim ${HOME}/.config
+
