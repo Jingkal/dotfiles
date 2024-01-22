@@ -13,14 +13,16 @@ unset my_paths
 ######################################################################
 ######## Locale
 ######################################################################
-export LANG=zh_CN.UTF-8
-export LC_ALL=zh_CN.UTF-8
-export LC_COLLATE=zh_CN.UTF-8
-export LC_CTYPE=zh_CN.UTF-8
-export LC_MESSAGES=zh_CN.UTF-8
-export LC_MONETARY=zh_CN.UTF-8
-export LC_NUMERIC=zh_CN.UTF-8
-export LC_TIME=zh_CN.UTF-8
+if [[ ${OSTYPE} == 'darwin'* ]] then
+    export LANG=zh_CN.UTF-8
+    export LC_ALL=zh_CN.UTF-8
+    export LC_COLLATE=zh_CN.UTF-8
+    export LC_CTYPE=zh_CN.UTF-8
+    export LC_MESSAGES=zh_CN.UTF-8
+    export LC_MONETARY=zh_CN.UTF-8
+    export LC_NUMERIC=zh_CN.UTF-8
+    export LC_TIME=zh_CN.UTF-8
+fi
 
 ######################################################################
 ######## Applications
