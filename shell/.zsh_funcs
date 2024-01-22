@@ -1,0 +1,70 @@
+#!/usr/bin/env zsh
+
+function vimrc {
+    local -a vimdirs=(
+        "${HOME}/.config/nvim"
+        "${HOME}/.vim"
+    )
+    for vdir in "${vimdirs[@]}"; do
+        if [[ ! -d ${vdir} ]]; then continue; fi
+        ${EDITOR:-vim} ${vdir}
+        return 0
+    done
+    echo "No Vim config directory found".
+    return 1
+}
+
+function fd {
+    if ! which fzf 2>&1 >/dev/null; then
+        echo "[fzf] is NOT installed. Exitting."
+        return 1
+    fi
+    local tdir=$(find ${1:-.} -type d -name 'Library' -prune -o -type d 2>/dev/null | fzf)
+    [[ ! -x $tdir || $tdir == '.' ]] && return 0
+    cd $tdir
+}
+
+function fe {
+    if ! which fzf 2>&1 >/dev/null; then
+        echo "[fzf] is NOT installed. Exitting."
+        return 1
+    fi
+    local tfile=$(find ${1:-.} -type d -name 'Library' -prune -o -type f 2>/dev/null | fzf)
+    [[ -z $tfile ]] && return 0
+    [[ -r $tfile ]] && ${EDITOR:-vim} ${tfile} || echo "$tfile is NOT readable!"
+}
+
+function note {
+    local notedir="$HOME/Documents/notes"
+    [[ ! -d $notedir ]] && echo "$notedir does not exists!" && return 1
+    local editor=${EDITOR:-vi}
+    [[ $TERM_PROGRAM == 'vscode' ]] && editor='code'
+    $editor $notedir
+}
+
+function fconf () {
+    if ! which fzf 2>&1 >/dev/null; then
+        echo "[fzf] not found in the path"
+        return 1
+    fi
+    local wdir="$HOME/.config"
+    local tfile=$(find ${wdir} -type f | fzf)
+    [[ -w ${tfile} && -r ${tfile} ]] && $EDITOR ${tfile}
+}
+
+function proxy {
+    case $1 in
+        on)
+            local server="http://127.0.0.1:1080" ;;
+        off)
+            local server="" ;;
+        *)
+            printf "%-6s: %s\n" "ALL" "${all_proxy}"
+            printf "%-6s: %s\n" "HTTP" "${http_proxy}"
+            printf "%-6s: %s\n" "HTTPS" "${https_proxy}"
+            return 0 ;;
+    esac
+    export all_proxy=${server}
+    export http_proxy=${server}
+    export https_proxy=${server}
+}
