@@ -27,5 +27,5 @@ pull.tmux:
 	rsync -av -c ${HOME}/.config/tmux .
 
 install.tmux:
-	rsync -av -c --delete ./nvim ${HOME}/.config
+	rsync -av -c --delete ./tmux ${HOME}/.config
 

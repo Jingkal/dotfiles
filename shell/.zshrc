@@ -9,7 +9,7 @@ bindkey "^X^E" edit-command-line
 ########################################################################
 ########## History
 ########################################################################
-export LESSHISTFILE=${HOME}/.cache
+export LESSHISTFILE=${HOME}/.cache/lesshist
 HISTFILE=${HOME}/.cache/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
@@ -74,6 +74,7 @@ alias cddev="cd ${HOME}/Documents/dev"
 alias cdconf="cd ${HOME}/.config"
 alias cddown="cd ${HOME}/Downloads"
 alias cdnotes="cd ${HOME}/Documents/notes"
+alias cdplay="cddev && cd play-cpp"
 
 ########################################################################
 ########## Source files
@@ -89,11 +90,9 @@ done
 ########## Completion
 ########################################################################
 autoload -Uz compinit && compinit -d ${HOME}/.cache/.zcompdump
-# compinit -d ${HOME}/.cache/.zcompdump
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "${HOME}/.cache/.zcompcache"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'

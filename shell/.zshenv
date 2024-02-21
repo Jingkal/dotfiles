@@ -27,19 +27,19 @@ fi
 ######################################################################
 ######## Applications
 ######################################################################
-# CMAKE ENVs
-export CMAKE_PREFIX_PATH="/opt/homebrew/lib"
 # fzf
 export FZF_DEFAULT_OPTS="--ansi --height=25 --reverse"
-# homebrew
+# MacOS
 if [[ ${OSTYPE} == 'darwin'* ]] then
+    # CMAKE ENVs
+    export CMAKE_PREFIX_PATH="/opt/homebrew/lib"
     export HOMEBREW_INSTALL_FROM_API=1
     export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
     export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
     export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
     eval "$(/opt/homebrew/bin/brew shellenv)"
+    # Diable .zsh_session caching on macOS
+    # This ENV is to allow macOS to restore shell state
+    export SHELL_SESSIONS_DISABLE=1
 fi
-# Diable .zsh_session caching on macOS
-# This ENV is to allow macOS to restore shell state
-[[ ${OSTYPE} == 'darwin'* ]] && export SHELL_SESSIONS_DISABLE=1
